@@ -25,7 +25,7 @@ const DEFAULTS: SeedanceDirectorPluginConfig = {
   },
   rendering: {
     outputDir: ".seedance-story-director",
-    stitchSegments: true,
+    stitchSegments: false,
     keepIntermediateFiles: true,
     downloadRemoteOutputs: true,
   },

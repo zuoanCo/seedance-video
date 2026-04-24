@@ -1,6 +1,6 @@
 # Seedance Story Director Plugin
 
-`Seedance Story Director` 是一个面向 `OpenClaw` 的企业级原生插件：它把一段故事文本扩展成可执行的短片分镜计划，使用 `火山引擎 / BytePlus ModelArk Seedance 2.0` 逐段生成视频片段，并在本地拼接成可交付的完整短视频。
+`Seedance Story Director` 是一个面向 `OpenClaw` 的企业级原生插件：它把一段故事文本扩展成可执行的短片分镜计划，使用 `火山引擎 / BytePlus ModelArk Seedance 2.0` 逐段生成视频片段，并产出可下载的分段结果与可选的外部拼接清单。
 
 核心能力：
 
@@ -10,7 +10,7 @@
 - 针对 Seedance 单次最长约 15 秒的限制，自动拆成多个连续段落。
 - 对后续片段自动注入上一段视频作为 continuity reference，尽量减少人物、服装、景别、光线和运动节奏漂移。
 - 支持单视频生成测试，便于先验证账号、额度、模型和提示词风格。
-- 输出完整产物目录：计划 JSON、分镜 Markdown、物料 JSON/Markdown、每段视频、最终拼接成片、执行 manifest。
+- 输出完整产物目录：计划 JSON、分镜 Markdown、物料 JSON/Markdown、每段视频、可选拼接清单、执行 manifest。
 
 ## 1. 安装依赖
 
@@ -49,7 +49,7 @@ pnpm build
             "enableDirectorModel": true
           },
           "rendering": {
-            "stitchSegments": true,
+            "stitchSegments": false,
             "downloadRemoteOutputs": true
           }
         }
@@ -188,7 +188,8 @@ pnpm test:single -- --input examples/single-video-request.json --dryRun
 - `manifest.json`：任务、URL、耗时、输出文件索引
 - `segments/*.json`：每段任务元数据
 - `segments/*.mp4`：下载到本地的分段视频
-- `final/*.mp4`：拼接后的成片
+- `final/concat-list.txt`：外部媒体流水线可直接使用的拼接清单
+- `final/*.mp4`：当任务只有单段，或你在受信任的外部环境完成拼接后得到的成片
 
 如果传入 `workspaceName`，则目录会切到项目级共享空间：
 
@@ -214,9 +215,10 @@ pnpm test:single -- --input examples/single-video-request.json --dryRun
 
 ## 7. 设计原则
 
-- 默认优先稳定性：先确保片段连续与成片可交付，再追求极端花哨效果。
+- 默认优先稳定性：先确保分段视频、分镜和资产可交付，再追求额外的本地后处理能力。
 - 多段成片默认关闭原生音频更稳；如果要开 `generateAudio`，建议先单片验证音轨风格。
-- 当导演模型不可用时，插件会自动降级到启发式分镜模式，仍可生成可用成片。
+- 社区版插件为通过 OpenClaw 安全扫描，默认不在插件进程内执行本地 ffmpeg 或其他 shell 命令；多段任务如需合成为单文件，请在受信任的外部媒体流水线中使用 `concat-list.txt` 完成。
+- 当导演模型不可用时，插件会自动降级到启发式分镜模式，仍可生成可用结果。
 
 ## 8. 参考
 

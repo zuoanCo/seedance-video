@@ -102,7 +102,6 @@ export type SeedanceDirectorPluginConfig = {
     stitchSegments: boolean;
     keepIntermediateFiles: boolean;
     downloadRemoteOutputs: boolean;
-    ffmpegPath?: string;
   };
 };
 
@@ -185,6 +184,7 @@ export type StoryVideoRunManifest = {
   manifestPath: string;
   materialsIndexPath?: string;
   finalVideoPath?: string;
+  concatListPath?: string;
   workspace?: WorkspaceDescriptor;
   assetLibraryPath?: string;
   usedDirectorModel: boolean;

@@ -95,6 +95,7 @@ function toRequestFromAssetInput(params: PrepareAssetsToolInput): StoryVideoRequ
 function buildSummary(details: {
   runDir: string;
   finalVideoPath?: string;
+  concatListPath?: string;
   storyboardPath: string;
   planPath: string;
   materialsIndexPath?: string;
@@ -119,6 +120,9 @@ function buildSummary(details: {
   if (details.finalVideoPath) {
     lines.push(`Final video: ${details.finalVideoPath}`);
   }
+  if (details.concatListPath) {
+    lines.push(`Concat list: ${details.concatListPath}`);
+  }
 
   if (details.warnings.length > 0) {
     lines.push(`Warnings: ${details.warnings.join(" | ")}`);
@@ -140,7 +144,7 @@ function createRuntimeMeta(ctx: OpenClawPluginToolContext) {
 export default definePluginEntry({
   id: "seedance-story-director",
   name: "Seedance Story Director",
-  description: "Creates stitched Seedance 2.0 short films from long-form text with screenplay expansion and continuity control.",
+  description: "Creates multi-segment Seedance 2.0 short films from long-form text with screenplay expansion, continuity control, and local downloadable outputs.",
   register(api) {
     api.registerTool(
       (ctx) => ({
@@ -213,7 +217,7 @@ export default definePluginEntry({
         name: "seedance_story_video",
         label: "Seedance Story Video",
         description:
-          "Turn a story text into a multi-segment Seedance 2.0 short film with expanded screenplay planning, reusable asset generation, continuity references, local downloads, and optional final stitching.",
+          "Turn a story text into a multi-segment Seedance 2.0 short film with expanded screenplay planning, reusable asset generation, continuity references, local downloads, and optional concat-list export for external assembly.",
         parameters: StoryVideoToolSchema,
         executionMode: "sequential",
         async execute(_toolCallId, params) {
@@ -227,6 +231,7 @@ export default definePluginEntry({
             buildSummary({
               runDir: manifest.runDir,
               finalVideoPath: manifest.finalVideoPath,
+              concatListPath: manifest.concatListPath,
               storyboardPath: manifest.storyboardPath,
               planPath: manifest.planPath,
               materialsIndexPath: manifest.materialsIndexPath,
@@ -262,6 +267,7 @@ export default definePluginEntry({
             buildSummary({
               runDir: manifest.runDir,
               finalVideoPath: manifest.finalVideoPath || manifest.segments[0]?.localVideoPath,
+              concatListPath: manifest.concatListPath,
               storyboardPath: manifest.storyboardPath,
               planPath: manifest.planPath,
               materialsIndexPath: manifest.materialsIndexPath,

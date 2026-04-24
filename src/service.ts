@@ -444,12 +444,15 @@ export async function runStoryVideoPipeline(params: {
       const stitched = await stitchVideoSegments({
         inputFiles: localSegmentFiles,
         outputFile: finalVideoPath,
-        ffmpegPath: prepared.config.rendering.ffmpegPath,
         hasAudio: Boolean(prepared.request.generateAudio),
       });
       if (stitched.stitched) {
         manifest.finalVideoPath = stitched.outputFile;
-      } else if (stitched.reason) {
+      }
+      if (stitched.concatListPath) {
+        manifest.concatListPath = stitched.concatListPath;
+      }
+      if (stitched.reason) {
         warnings.push(stitched.reason);
       }
     } catch (error) {
