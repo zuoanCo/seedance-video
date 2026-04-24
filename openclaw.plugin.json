@@ -1,0 +1,135 @@
+{
+  "id": "seedance-story-director",
+  "name": "Seedance Story Director",
+  "description": "Turns raw story text into multi-shot Seedance 2.0 short videos with screenplay expansion, continuity control, and stitched deliverables.",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "ark": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "baseUrl": {
+            "type": "string",
+            "default": "https://ark.cn-beijing.volces.com/api/v3"
+          },
+          "apiKey": {
+            "type": "string"
+          },
+          "apiKeyEnv": {
+            "type": "string",
+            "default": "ARK_API_KEY"
+          },
+          "videoModel": {
+            "type": "string",
+            "default": "doubao-seedance-2-0-260128"
+          },
+          "fastVideoModel": {
+            "type": "string",
+            "default": "doubao-seedance-2-0-260128"
+          },
+          "directorModel": {
+            "type": "string",
+            "default": "MiniMax-M2.7"
+          },
+          "directorBaseUrl": {
+            "type": "string",
+            "default": "https://api.minimaxi.com/v1"
+          },
+          "directorApiKey": {
+            "type": "string"
+          },
+          "directorApiKeyEnv": {
+            "type": "string",
+            "default": "DIRECTOR_OPENAI_API_KEY"
+          },
+          "pollIntervalMs": {
+            "type": "integer",
+            "minimum": 1000,
+            "default": 15000
+          },
+          "taskTimeoutMs": {
+            "type": "integer",
+            "minimum": 60000,
+            "default": 1800000
+          },
+          "maxRetries": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 2
+          }
+        }
+      },
+      "planning": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "preferredAspectRatio": {
+            "type": "string",
+            "default": "16:9"
+          },
+          "defaultClipDurationSeconds": {
+            "type": "integer",
+            "minimum": 4,
+            "maximum": 15,
+            "default": 8
+          },
+          "defaultTargetMinutes": {
+            "type": "number",
+            "minimum": 0.25,
+            "maximum": 10,
+            "default": 2.5
+          },
+          "maxSegmentCount": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 60,
+            "default": 24
+          },
+          "enableDirectorModel": {
+            "type": "boolean",
+            "default": true
+          },
+          "continuityMode": {
+            "type": "string",
+            "enum": [
+              "video_reference",
+              "story_bible"
+            ],
+            "default": "video_reference"
+          }
+        }
+      },
+      "rendering": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "outputDir": {
+            "type": "string",
+            "default": ".seedance-story-director"
+          },
+          "stitchSegments": {
+            "type": "boolean",
+            "default": true
+          },
+          "keepIntermediateFiles": {
+            "type": "boolean",
+            "default": true
+          },
+          "downloadRemoteOutputs": {
+            "type": "boolean",
+            "default": true
+          },
+          "ffmpegPath": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "uiHints": {
+    "displayName": "Seedance Story Director",
+    "category": "video"
+  }
+}

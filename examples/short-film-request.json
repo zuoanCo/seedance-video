@@ -1,0 +1,9 @@
+{
+  "title": "memory-of-the-last-train",
+  "text": "凌晨三点，停运前的最后一班地铁穿过空城。一个多年未归的女人拖着旧皮箱回到故乡，沿途看见已经拆迁的街区、还亮着灯的小卖部、在雨里练琴的少年，还有年轻时的自己仿佛在列车窗外一闪而过。她最终在终点站下车，走向河堤，天开始微亮。",
+  "targetMinutes": 2.2,
+  "clipDurationSeconds": 8,
+  "directorStyle": "现实主义电影感，低饱和夜景，细腻人物情绪，缓慢推进镜头与少量诗意转场",
+  "generateAudio": false,
+  "watermark": true
+}

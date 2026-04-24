@@ -1,0 +1,8 @@
+{
+  "title": "single-video-smoke-test",
+  "prompt": "A rain-soaked old Shanghai alley at dawn, a young woman in a dark trench coat pauses under a flickering tungsten sign, cinematic realism, gentle handheld push-in, wet cobblestones reflecting amber and teal light.",
+  "aspectRatio": "16:9",
+  "clipDurationSeconds": 8,
+  "generateAudio": false,
+  "watermark": true
+}

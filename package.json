@@ -1,0 +1,50 @@
+{
+  "name": "openclaw-seedance-director-plugin",
+  "version": "0.1.0",
+  "description": "Enterprise-grade OpenClaw plugin that turns story text into stitched Seedance 2.0 short films with director-grade scene planning and continuity control.",
+  "type": "module",
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "openclaw": {
+    "extensions": [
+      "./src/index.ts"
+    ],
+    "runtimeExtensions": [
+      "./dist/index.js"
+    ],
+    "compat": {
+      "pluginApi": ">=2026.4.22",
+      "minGatewayVersion": "2026.4.22"
+    },
+    "build": {
+      "openclawVersion": "2026.4.22",
+      "pluginSdkVersion": "2026.4.22"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:single": "tsx src/cli/run-single-test.ts"
+  },
+  "bin": {
+    "seedance-director-test": "./dist/cli/run-single-test.js"
+  },
+  "dependencies": {
+    "@sinclair/typebox": "^0.34.41",
+    "ffmpeg-static": "^5.2.0",
+    "jsonrepair": "^3.8.0",
+    "openai": "^5.11.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "openclaw": "2026.4.22",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  }
+}
